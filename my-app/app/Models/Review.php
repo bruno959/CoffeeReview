@@ -29,7 +29,7 @@ class  Review extends Model
     public function saveReview($request)
     {
         $this->shop_id = $request->shop_id;
-        $this->user_id = 1;
+        $this->user_id = $request->user()->id;
         $this->rating  = $request->rating;
         $this->comment = $request->comment;
         $this->save();

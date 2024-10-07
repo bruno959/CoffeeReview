@@ -1,15 +1,17 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import {Head, usePage} from '@inertiajs/react';
 import DeleteUserForm from './Partials/DeleteUserForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
+import MainLayout from "@/Layouts/MainLayout.jsx";
 
 export default function Edit({ mustVerifyEmail, status }) {
+    const { auth } = usePage().props;
     return (
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Profile
+                    マイページ
                 </h2>
             }
         >
@@ -37,3 +39,5 @@ export default function Edit({ mustVerifyEmail, status }) {
         </AuthenticatedLayout>
     );
 }
+
+Edit.layout = page => <MainLayout children={page} title='Edit' />;
