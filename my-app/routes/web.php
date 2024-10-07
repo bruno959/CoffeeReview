@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -31,5 +32,10 @@ Route::get('/sample', function () {
 
 Route::get('/home', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/shop/{id}', [ShopController::class, 'detail'])->name('shop.detail');
+
+// Review
+Route::get('/review/create/shop/{id}', [ReviewController::class, 'create'])->name('review.store');
+Route::post('/review/store', [ReviewController::class, 'store'])->name('review.store');
+
 
 require __DIR__.'/auth.php';

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Review extends Model
+class  Review extends Model
 {
     use HasFactory;
 
@@ -24,5 +24,16 @@ class Review extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function saveReview($request)
+    {
+        $this->shop_id = $request->shop_id;
+        $this->user_id = 1;
+        $this->rating  = $request->rating;
+        $this->comment = $request->comment;
+        $this->save();
+
+        return $this;
     }
 }

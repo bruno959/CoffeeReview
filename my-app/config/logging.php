@@ -51,6 +51,12 @@ return [
     */
 
     'channels' => [
+        'debug' => [
+            'driver' => 'daily',
+            'path'=> storage_path("logs/debug/debug.log"),
+            'days' => 0,
+            'level' => 'debug',
+        ],
 
         'stack' => [
             'driver' => 'stack',

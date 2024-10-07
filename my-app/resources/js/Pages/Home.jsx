@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, Heading, VStack, HStack, Image, Text, Link} from "@chakra-ui/react";
-import { StarIcon } from "@chakra-ui/icons";
-import MainLayout from "@/Layouts/MainLayout";
+ import MainLayout from "@/Layouts/MainLayout";
+import ReviewList from "@/Components/Organisms/ReviewList.jsx";
 
 const Home = (props) => {
     return (
@@ -12,7 +12,7 @@ const Home = (props) => {
                     ショップ一覧
                 </Heading>
                 <VStack spacing={4} align='stretch'>
-                    {props.shops.map((shop) => (
+                    {props.shops.map ((shop) => (
                         <Link key={shop.id} href={`/shop/${shop.id}`} _hover={{color:'gray.500'}}>
                             <Box key={shop.id} p={4} borderWidth={'1px'} borderRadius={'lg'} overflow={'hidden'} boxShadow={'lg'}>
                                 <HStack spacing={4}>
@@ -30,19 +30,7 @@ const Home = (props) => {
                     新着レビュー
                 </Heading>
                 <VStack spacing={4} align='stretch'>
-                    {props.newReviews.map((review) => (
-                        <Box key={review.id} p={4} borderWidth={'1px'} borderRadius={'lg'} overflow={'hidden'} boxShadow={'lg'}>
-                            <VStack align='start'>
-                                <Text fontWeight={'bold'}>{review.user.name}</Text>
-                                <Text>{review.comment}</Text>
-                                <HStack spacing={1}>
-                                    {Array(5).fill("").map((_, i) => (
-                                        <StarIcon key={i} color={i < review.rating ? 'yellow.500' : 'gray.300'} />
-                                    ))}
-                                </HStack>
-                            </VStack>
-                        </Box>
-                    ))}
+                    <ReviewList reviews={props.newReviews} />
                 </VStack>
             </Box>
         </>

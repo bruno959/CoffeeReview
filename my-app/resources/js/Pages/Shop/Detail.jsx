@@ -1,8 +1,24 @@
+import React, { useEffect } from "react";
 import MainLayout from "@/Layouts/MainLayout.jsx";
-import { Box, Heading, Image, Text, HStack } from "@chakra-ui/react";
-import { StarIcon } from "@chakra-ui/icons";
+import { Box, Heading, Image, Text, Link, Button, useToast } from "@chakra-ui/react";
+import { SmallAddIcon  } from "@chakra-ui/icons";
+import ReviewList  from "@/Components/Organisms/ReviewList.jsx";
 
 const Detail = (props) => {
+    const toast = useToast();
+
+    useEffect(() => {
+        if (props.status === 'review-created') {
+            toast({
+                position: 'bottom',
+                title: 'レビューを投稿成功',
+                description: 'レビューを投稿しました。',
+                status: 'success',
+                duration: 6000,
+                isClosable: true,
+            });
+        }
+    }, [props.status]);
     return (
         <Box p={4}>
             <Heading as='h2' size={'xl'} mb={4}>
@@ -17,6 +33,11 @@ const Detail = (props) => {
                     レビュー
                 </Heading>
                 <Box>
+                    <Link href={`/review/create/shop/${props.shop.id} `}>
+                        <Button my={4}><SmallAddIcon />レビューを書く</Button>
+                    </Link>
+                </Box>
+                <Box>
                     {props.reviews.length > 0 &&
                         <Box mb={2}>
                             ({props.reviews.length})
@@ -28,17 +49,7 @@ const Detail = (props) => {
                     {props.reviews.length === 0 &&
                         <Text>レビューはまだありません。</Text>
                     }
-                    {props.reviews.map((review) =>
-                        <Box key={review.id} p={4} borderWidth={'1px'} borderRadius={'lg'} overflow={'hidden'} boxShadow={'lg'} mb={4}>
-                            <Text>{review.comment}</Text>
-                            <Text textAlign={'right'} mt={2} fontSize={'sm'}>{review.user.name}</Text>
-                            <HStack>
-                                {Array(5).fill("").map((_, i) => (
-                                    <StarIcon key={i} color={i < review.rating ? 'yellow.500' : 'gray.300'} />
-                                ))}
-                            </HStack>
-                        </Box>
-                )}
+                    <ReviewList reviews={props.reviews} />
                 </Box>
             </Box>
         </Box>
